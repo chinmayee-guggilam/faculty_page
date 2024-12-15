@@ -1,0 +1,322 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Responsive Member Cards</title>
+  <link rel="stylesheet" href="fac.css">
+</head>
+<body>
+  <div class="button-container">
+    <!-- Branch buttons -->
+    <button class="department-btn" onclick="showBranch('cse')">CSE</button>
+    <button class="department-btn" onclick="showBranch('eee')">EEE</button>
+    <button class="department-btn" onclick="showBranch('ece')">ECE</button>
+    <button class="department-btn" onclick="showBranch('civil')">Civil</button>
+    <button class="department-btn" onclick="showBranch('mech')">Mech</button>
+    <button class="department-btn" onclick="showBranch('mba')">MBA</button>
+  </div>
+
+  <div id="event-buttons" class="button-container"></div>
+
+  <div class="content-container">
+    <div class="faculty-container">
+      <h3>Faculty</h3>
+      <div id="faculty-container" class="card-list"></div>
+    </div>
+    <div class="student-container">
+      <h3>Students</h3>
+      <div id="student-container" class="card-list"></div>
+    </div>
+  </div>
+</body>
+
+<script>
+// Data structure for faculty, students, and events
+const branchData = {
+  cse: {
+    events: {
+      "Code Conflux": {
+        faculty: [
+          { name: "Dr. Smith", role: "Professor"},
+          { name: "Prof. Jones", role: "Associate Professor"}
+        ],
+        students: [
+          { name: "Alice", number: "7654321098" },
+          { name: "Bob", number: "6543210987" },
+          { name: "Charlie", number: "5432109876" }
+        ]
+      },
+      "Technical PPT": {
+        faculty: [
+          { name: "Dr. Adams", role: "Assistant Professor" }
+        ],
+        students: [
+          { name: "Eve",number: "8345678901" },
+          { name: "Mallory", number: "9456789012" }
+        ]
+      },
+      "Hitech Chase": {
+        faculty: [
+          { name: "Dr. Adams", role: "Assistant Professor" }
+        ],
+        students: [
+          { name: "Eve",number: "8345678901" },
+          { name: "Mallory", number: "9456789012" }
+        ]
+      },
+      "Pixel Perfect": {
+        faculty: [
+          { name: "Dr. Adams", role: "Assistant Professor" }
+        ],
+        students: [
+          { name: "Eve",number: "8345678901" },
+          { name: "Mallory", number: "9456789012" }
+        ]
+      },
+      "Project Expo": {
+        faculty: [
+          { name: "Dr. Adams", role: "Assistant Professor" }
+        ],
+        students: [
+          { name: "Eve",number: "8345678901" },
+          { name: "Mallory", number: "9456789012" }
+        ]
+      },
+      "Data Visionary": {
+        faculty: [
+          { name: "Dr. Adams", role: "Assistant Professor" }
+        ],
+        students: [
+          { name: "Eve",number: "8345678901" },
+          { name: "Mallory", number: "9456789012" }
+        ]
+      }
+    }
+  },
+  eee: {
+    events: {
+      "Techvortex": {
+        faculty: [
+          { name: "Mr.P.D.V.S.K.Kishore", role: "Assoc.Professor" },
+          { name: "Mr.Sk.karimulla", role: "Asst.Professor" }
+        ],
+        students: [
+          { name: "Sk.Kalam Sabir",number: "9398526004" },
+          { name: "Sk.Ashraf Jaha",number: "8790045211" }
+        ]
+      },
+      "Paper Presento": {
+        faculty: [
+          { name: "Mr.M.Chandra Sekhar", role: "Assoc.Professor" },
+          { name: "Mrs.P.Bramarambavathi", role: "Asst.Professor" }
+        ],
+        students: [
+          { name: "Mr.Bhanuprakash",number: "9391931597" },
+          { name: "Ms.Sd.Safina",number: "7288846062" }
+        ]
+      },
+      "Electriqz": {
+        faculty: [
+          { name: "Mr.Sk.Abdul kalam", role: "Assoc.Professor" },
+          { name: "Mr.G.Naveen", role: "Asst.Professor" }
+        ],
+        students: [
+          { name: "K.Hemanth",number: "6304042427" },
+          { name: "Sk.Reshma",number: "7569616622" }
+        ]
+      }
+    }
+  },
+  ece: {
+    events: {
+      "Project Expo": {
+        faculty: [
+          { name: "Dr.J.Brahmaiah Naik", role: "Professor"},
+          { name: "Mr.Ch.Adi Babu", role: "Asst.Professor"}
+        ],
+        students: [
+          { name: "D.V.Brahmarhari", number: "9502794711" },
+          { name: "P.Tanmayi", number: "8688251148" }
+        ]
+      },
+      "Paper Presentation": {
+        faculty: [
+          { name: "Dr.Md.Javeed Ahammed", role: "Assoc.Professor"},
+          { name: "Mr.A.Raveendra Babu", role: "Asst.Professor"}
+        ],
+        students: [
+          { name: "D.Yamuna", number: "9948233499" },
+          { name: "Sk.MD.Khamruddin", number: "7569106788" }
+        ]
+      },
+      "Circuitrix": {
+        faculty: [
+          { name: "Dr.B.Sunnetha", role: "Asst.Professor"},
+          { name: "Mrs.T.Indira", role: "Asst.Professor"}
+        ],
+        students: [
+          { name: "Y.H.Brahma Chari", number: "7989335168" },
+          { name: "R.Harini", number: "6309486213" }
+        ]
+      },
+      "Technical Quiz": {
+        faculty: [
+          { name: "Dr.Sk.Nannu Saheb", role: "Asst.Professor"},
+          { name: "Mr.J.Narasimha Rao", role: "Assoc.Professor"}
+        ],
+        students: [
+          { name: "P.Kavya Sree", number: "9391559309" },
+          { name: "M.S.N.Srinivas", number: "6309486213" }
+        ]
+      }
+    }
+  },
+  mech: {
+    events: {
+      "Yantralayam": {
+        faculty: [
+          { name: "Mr.Ch.Sekhar", role: "Assoc.Professor" },
+          { name: "Mr.A.Pavan Kumar", role: "Asst.Professor" }
+        ],
+        students: [
+          { name: "P.Ajay Babu",number: "6281989639" },
+          { name: "M.V.S.V.Pavan Kumar",number: "9866568301" }
+        ]
+      },
+      "Mech Slides": {
+        faculty: [
+          { name: "Dr.P.Suresh Babu", role: "Professor" },
+          { name: "Mr.M.Mothilal Naik", role: "Asst.Professor" }
+        ],
+        students: [
+          { name: "B.S.Ganesh",number: "9000549346" },
+          { name: "T.Bharath",number: "7075299823" }
+        ]
+      },
+      "Quiz Thunder": {
+        faculty: [
+          { name: "Mr.K.Kiran Chand", role: "Assoc.Professor" },
+          { name: "Mr.K.John Babu", role: "Asst.Professor" }
+        ],
+        students: [
+          { name: "R.Nani Naik",number: "9391364385" },
+          { name: "P.P.V.Vardhan",number: "6281876168" }
+        ]
+      }
+    }
+  },
+  civil: {
+    events: {
+      "Model Making": {
+        faculty: [
+          { name: "Mr.Ch.Sekhar", role: "Assoc.Professor" },
+          { name: "Mr.A.Pavan Kumar", role: "Asst.Professor" }
+        ],
+        students: [
+          { name: "P.Ajay Babu",number: "6281989639" },
+          { name: "M.V.S.V.Pavan Kumar",number: "9866568301" }
+        ]
+      },
+      "Paper Presentation": {
+        faculty: [
+          { name: "Dr.P.Suresh Babu", role: "Professor" },
+          { name: "Mr.M.Mothilal Naik", role: "Asst.Professor" }
+        ],
+        students: [
+          { name: "B.S.Ganesh",number: "9000549346" },
+          { name: "T.Bharath",number: "7075299823" }
+        ]
+      },
+      "Technical Quiz": {
+        faculty: [
+          { name: "Mr.K.Kiran Chand", role: "Assoc.Professor" },
+          { name: "Mr.K.John Babu", role: "Asst.Professor" }
+        ],
+        students: [
+          { name: "R.Nani Naik",number: "9391364385" },
+          { name: "P.P.V.Vardhan",number: "6281876168" }
+        ]
+      }
+    }
+  },
+  mba: {
+    events: {
+      "Brainy Bee": {
+        faculty: [
+          { name: "Mr.Ch.Sekhar", role: "Assoc.Professor" },
+          { name: "Mr.A.Pavan Kumar", role: "Asst.Professor" }
+        ],
+        students: [
+          { name: "P.Ajay Babu",number: "6281989639" },
+          { name: "M.V.S.V.Pavan Kumar",number: "9866568301" }
+        ]
+      },
+      "Smart Manager": {
+        faculty: [
+          { name: "Dr.P.Suresh Babu", role: "Professor" },
+          { name: "Mr.M.Mothilal Naik", role: "Asst.Professor" }
+        ],
+        students: [
+          { name: "B.S.Ganesh",number: "9000549346" },
+          { name: "T.Bharath",number: "7075299823" }
+        ]
+      },
+      "Rananeeti": {
+        faculty: [
+          { name: "Mr.K.Kiran Chand", role: "Assoc.Professor" },
+          { name: "Mr.K.John Babu", role: "Asst.Professor" }
+        ],
+        students: [
+          { name: "R.Nani Naik",number: "9391364385" },
+          { name: "P.P.V.Vardhan",number: "6281876168" }
+        ]
+      }
+    }
+  }
+  // Add other branches similarly
+};
+
+// Function to display events for a branch
+function showBranch(branch) {
+  const eventContainer = document.getElementById("event-buttons");
+  eventContainer.innerHTML = ""; // Clear previous event buttons
+
+  if (!branchData[branch]) return;
+
+  Object.keys(branchData[branch].events).forEach((event) => {
+    const btn = document.createElement("button");
+    btn.className = "event-btn";
+    btn.textContent = event;
+    btn.onclick = () => showEvent(branch, event);
+    eventContainer.appendChild(btn);
+  });
+}
+
+// Function to display faculty and students for an event
+function showEvent(branch, event) {
+  const facultyContainer = document.getElementById("faculty-container");
+  const studentContainer = document.getElementById("student-container");
+
+  facultyContainer.innerHTML = ""; // Clear previous faculty cards
+  studentContainer.innerHTML = ""; // Clear previous student cards
+
+  const { faculty, students } = branchData[branch].events[event];
+
+  faculty.forEach(({ name, role, number }) => {
+    const card = document.createElement("div");
+    card.className = "card";
+    card.innerHTML = `<h4>${name}</h4><p>${role}</p>`;
+    facultyContainer.appendChild(card);
+  });
+
+  students.forEach(({ name, role, number }) => {
+    const card = document.createElement("div");
+    card.className = "card";
+    card.innerHTML = `<h4>${name}</h4><p class="number">${number}</p>`;
+    studentContainer.appendChild(card);
+  });
+}
+
+</script>
+</html>
